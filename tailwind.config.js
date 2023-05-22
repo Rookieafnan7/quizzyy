@@ -7,11 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily:{
+        'poppins':['Poppins','sans-serif']
       },
+      colors:{
+        'navbar':'#554994',
+        'title':'#98A8F8',
+        'description':'#E5E0FF',
+        'createdby':'#FFE6E6',
+        'quizspecifics':'#F3C5C5'
+      },
+      maxHeight:{
+        'ideal':'60vh'
+      }
     },
   },
   plugins: [],
