@@ -3,8 +3,13 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
 body{
   background-color: #FAF7F0;
+  margin:0
 }
 
 .font-poppins{
@@ -19,6 +24,47 @@ body{
   height: 20px;
 } */
 
+.sidebar,.question-container{
+  /* border:2px solid black; */
+  transition:500ms;
+  transition-timing-function: ease-out;
+
+}
+.open{
+  width:30%;
+  border:2px solid white;
+}
+.close{
+  width:1.5rem;
+  overflow: hidden;
+  padding: 0;
+  /* padding:0;
+  border:0; */
+}
+.close > .section{
+  visibility: hidden;
+}
+/* 
+'unvisited':'#FFFFFF',
+        'markedforreview':'#967BB6',
+        'answered':'#90EE90',
+        'notanswered':'#FFCCCB', */
+
+.bg-unvisited{
+  background-color: #FFFFFF;
+}        
+
+.bg-markedforreview{
+  background-color: #967BB6;
+}
+
+.bg-answered{
+  background-color: #90EE90;
+}
+
+.bg-notanswered{
+  background-color:#FFCCCB;
+}
 @media (min-width:768px){
   .description::-webkit-scrollbar {
     width: 10px;
@@ -39,10 +85,41 @@ body{
   .description::-webkit-scrollbar-thumb:hover {
     background: darkgray;
   }
-
+  .question{
+    overflow-y: overlay;
+  }
+  .question::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .question::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  .question::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  .question::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+  }
 }
-
+  
 @media(max-width:768px){
+  .open{
+    width:70%;
+  }
+  .startdiv{
+    background: rgb(197,212,252);
+    background: linear-gradient(0deg, gray 0%, rgba(255,210,208,0) 100%);
+  }
+  body{
+    overflow: overlay;
+  }
   .info{
     display: grid;
     /* grid-row: 1; */
@@ -59,4 +136,18 @@ body{
   .quizspecifics{
     padding-left: 20%;
   }
+  body::-webkit-scrollbar {
+    width: 10px;
+  }
+  body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  body::-webkit-scrollbar-thumb:hover {
+    background: gray;
+  }
+  body::-webkit-scrollbar-thumb {
+    background: darkgray;
+    border-radius: 20px;
+  }
+
 }
