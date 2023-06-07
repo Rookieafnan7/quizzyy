@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import Navbar from "../../../components/navbar"
+import { useSession } from "next-auth/react";
 export default function Quiz() {
   const router = useRouter()
   // return <p>{router.query.id}</p>;
+  const {data:session,status} = useSession({required:true})
   return(
     <div className="margin-0">
     <Navbar/>

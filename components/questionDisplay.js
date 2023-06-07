@@ -24,16 +24,7 @@ export default function QuestionDisplay(props){
     return(<>
         <div className={`question-container w-[97%] ${props.sidebarStatus?"m:w-[68%]":"w-[97%] m:w-[94%]"}`}>
             <div className="question bg-question rounded-2xl drop-shadow-lg py-4 px-6 md:h-[27vh] md:overflow-y-scroll">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum, massa id convallis egestas,
-             nunc erat viverra augue, sit amet venenatis ante turpis ut ipsum. Ut ac mattis sem, sed pretium tellus. Vivamus ut enim urna.
-              In posuere nec nunc eget condimentum. Morbi et finibus tortor.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum, massa id convallis egestas,
-             nunc erat viverra augue, sit amet venenatis ante turpis ut ipsum. Ut ac mattis sem, sed pretium tellus. Vivamus ut enim urna.
-              In posuere nec nunc eget condimentum. Morbi et finibus tortor.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum, massa id convallis egestas,
-             nunc erat viverra augue, sit amet venenatis ante turpis ut ipsum. Ut ac mattis sem, sed pretium tellus. Vivamus ut enim urna.
-              In posuere nec nunc eget condimentum. Morbi et finibus tortor.
-              
+           {props.currentQuestionData.description}
             </div>
             <div className={`mt-[3vh] md:h-[35vh] bg-options rounded-2xl drop-shadow-lg py-4 px-6 overflow-y-scroll`}>
               <form className="">
