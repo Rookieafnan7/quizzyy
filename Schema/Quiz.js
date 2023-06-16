@@ -45,10 +45,21 @@ const quizSchema = new Schema({
     quizDescription:String,
     createdBy:String,
     quizId:Number,
+    userId:Number,
     sections:[sectionSchema],
+    totalMarks:Number,
+    totalQuestions:Number,
+    totalSections:Number,
+})
+const userSchema = new Schema({
+    userId:Number,
+    userName:String,
+    userEmail:String,
+    verified:Boolean
 })
 mongoose.set('strictQuery', false);
 
+const User = models.user || new model("user",userSchema);
 const Question = models.question || new model("question",questionSchema);
 const Section =  models.section || new model("section",sectionSchema);
 const Quiz =  models.quiz || new model("quiz",quizSchema);
@@ -60,5 +71,5 @@ const Answer = models.answer || new model("answer",answerSchema);
 // mongoose.connect("mongodb://127.0.0.1:27017/quizDB");
 
 
-export {Question,Section,Quiz,Answer};
+export {Question,Section,Quiz,Answer,User};
 

@@ -30,7 +30,9 @@ module.exports = {
         'notanswered':'#FFCCCB',
         'section':'#B2C8DF',
         'leaderboard':'#4942E4',
-        'leaderboarddata':'#ECCDB4'
+        'leaderboarddata':'#ECCDB4',
+        'createquiz':'#40128B',
+        'createquizprimary':'#ECE5C7'
       },
       maxHeight:{
         'ideal':'60vh',

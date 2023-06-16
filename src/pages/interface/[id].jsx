@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import {useSession} from "next-auth/react"
 import { useEffect } from "react";
 import Sidebar from "../../../components/sidebar";
 import QuestionDisplay from "../../../components/questionDisplay";
@@ -7,6 +7,8 @@ import TopBar from "../../../components/topBar";
 import { useRouter } from "next/router";
 
 export default function Interface(){
+
+    const {data:session,status} = useSession({required:true})
     const router = useRouter();
     const id = router.query.id
     const [answer,setAnswer] = useState([])
@@ -24,12 +26,12 @@ export default function Interface(){
     async function submitAnswer(){
       const url = "/api/submitQuiz"
       const object = {
-        userId:1,//has to change
         answer:answer,
         quizId:quizDataStore.quizId,
         attemptStartTime:quizDataStore.startTime,
         attemptEndTime:quizDataStore.stopTime,
-        submitTime:new Date()
+        submitTime:new Date(),
+        userId:session.userData.userId
       }
       try{
         const response = await fetch(url,{

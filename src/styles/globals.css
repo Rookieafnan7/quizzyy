@@ -110,6 +110,7 @@ body{
 }
   
 @media(max-width:768px){
+  
   .open{
     width:70%;
   }
@@ -132,6 +133,9 @@ body{
     height: auto;
     padding:auto;
 
+  }
+  .create-quiz-container{
+    text-align: center;
   }
   .quizspecifics{
     padding-left: 20%;
