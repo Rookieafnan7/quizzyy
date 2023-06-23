@@ -32,7 +32,10 @@ module.exports = {
         'leaderboard':'#4942E4',
         'leaderboarddata':'#ECCDB4',
         'createquiz':'#40128B',
-        'createquizprimary':'#ECE5C7'
+        'createquizprimary':'#ECE5C7',
+        'createsection':'#D9D9D9',
+        'createquestion':'#AAAAAA',
+        'addquestion':'#D9D9D9'
       },
       maxHeight:{
         'ideal':'60vh',

@@ -65,6 +65,17 @@ body{
 .bg-notanswered{
   background-color:#FFCCCB;
 }
+
+.MuiInputBase-input  {
+  background: white;
+}
+
+.quiz-description .MuiOutlinedInput-root{
+  background: white;
+}
+.MuiFormHelperText-root{
+  color:red
+}
 @media (min-width:768px){
   .description::-webkit-scrollbar {
     width: 10px;
