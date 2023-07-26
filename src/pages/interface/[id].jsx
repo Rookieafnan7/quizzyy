@@ -9,11 +9,13 @@ import { useRouter } from "next/router";
 export default function Interface(){
 
     const {data:session,status} = useSession({required:true})
+    // const userId = session.userData.userId
     const router = useRouter();
     const id = router.query.id
     const [answer,setAnswer] = useState([])
     const [sidebarStatus,setSidebarStatus] = useState(true);
-    const [sidebarQuestionStatus,setSidebarQuestionStatus] = useState({});
+    //const [sidebarQuestionStatus,setSidebarQuestionStatus] = useState({});
+    const [attemptData,setAttemptData] = useState({})
     const [currentQuestionData,setCurrentQuestionData] = useState({section:undefined,question:undefined,options:[]});
     const [quizDataStore,setQuizDataStore] = useState({sections:undefined});
     var quizData;
@@ -26,12 +28,9 @@ export default function Interface(){
     async function submitAnswer(){
       const url = "/api/submitQuiz"
       const object = {
+        ...attemptData,
         answer:answer,
-        quizId:quizDataStore.quizId,
-        attemptStartTime:quizDataStore.startTime,
-        attemptEndTime:quizDataStore.stopTime,
         submitTime:new Date(),
-        userId:session.userData.userId
       }
       try{
         const response = await fetch(url,{
@@ -120,8 +119,9 @@ export default function Interface(){
     useEffect(()=>{
       
       async function fetchQuiz(){
+        console.log(session,"session")
         try{
-          console.log("called")
+          // console.log(session?.userData)
           if(router && router.query && router.query.id){
             const url = "/api/quizFetch";
             const response = await fetch(url,{
@@ -129,32 +129,34 @@ export default function Interface(){
             headers: {
               "Content-Type": "application/json",
             },
-              body: JSON.stringify({quizId:id}),
+              body: JSON.stringify({quizId:id,userId:session.userData.userId}),
             })
              let tempData = await response.json()
              quizData = tempData.results
-            // console.log(tempData) 
-             console.log(quizData,"quizData");
+            
+            //  console.log(quizData,"quizData");
             setCurrentQuestionData({section:1,question:1,sectionId:quizData.sections[0].sectionId,questionId:quizData.sections[0].questions[0].id,...quizData.sections[0].questions[0]});
+            // console.log(quizData)
+            setAttemptData(tempData.answer)
             setQuizDataStore(quizData);
-            let answerArray = []
-            if(quizData.sections){
-              for(let i = 0;i<quizData.sections.length;i++){
-                for(let j = 0;j<quizData.sections[i].questions.length;j++){
-                  let object = {
-                                  qindex:j+1,
-                                  sindex:i+1,
-                                  qid:quizData.sections[i].questions[j].id,
-                                  sid:quizData.sections[i].sectionId,
-                                  unchecked:true,
-                                  status:'unvisited'
-                                };
-                  answerArray.push(object);
-                }
-              }
-              setAnswer(answerArray);
-              // console.log(quizData)
-            }
+            // let answerArray = []
+            // if(quizData.sections){
+            //   for(let i = 0;i<quizData.sections.length;i++){
+            //     for(let j = 0;j<quizData.sections[i].questions.length;j++){
+            //       let object = {
+            //                       qindex:j+1,
+            //                       sindex:i+1,
+            //                       qid:quizData.sections[i].questions[j].id,
+            //                       sid:quizData.sections[i].sectionId,
+            //                       unchecked:true,
+            //                       status:'unvisited'
+            //                     };
+            //       answerArray.push(object);
+            //     }
+            //   }}
+              setAnswer(tempData.answer.answer);
+              console.log(tempData,"tempData")
+            
 
           }
 
@@ -162,10 +164,13 @@ export default function Interface(){
           console.log(err);
         }
       }
+      if(session?.userData){
         fetchQuiz()
+      }
+        
         // console.log(answer);
 
-    },[router])
+    },[router,session])
 
     return(
     <>
@@ -176,7 +181,7 @@ export default function Interface(){
       <div className="md:mx-2 mt-4">
         <TopBar quizDataStore={quizDataStore} currentQuestionData={currentQuestionData} submitAnswer={submitAnswer}/>
         <div className={`flex md:gap-4 justify-between mt-4 relative`}>
-          <QuestionDisplay sidebarStatus={sidebarStatus} currentQuestionData={currentQuestionData} answer={answer} setAnswer={setAnswer} nextQuestion={nextQuestion} prevQuestion={prevQuestion}/>
+          <QuestionDisplay sidebarStatus={sidebarStatus} currentQuestionData={currentQuestionData} answer={answer} setAnswer={setAnswer} nextQuestion={nextQuestion} prevQuestion={prevQuestion} attemptData={attemptData}/>
           <Sidebar sidebarStatus={sidebarStatus} setSidebarStatus={setSidebarStatus} quizDataStore={quizDataStore} currentQuestionData={currentQuestionData} answer={answer} sidebarNavigation={sidebarNavigation}/>
         </div>
     </div>

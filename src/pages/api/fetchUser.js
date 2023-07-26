@@ -1,7 +1,13 @@
 import fetchUserDB from "../../../lib/fetchUserDB";
 import insertUserDB from "../../../lib/insertUserDB";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "./auth/[...nextauth]"
 
 export default async function fetchUser(req,res){
+    const session = await getServerSession(req, res, authOptions)
+    if (!session) {
+        res.status(403).send({message:"Forbidden"})
+    }
     try{
         if(req.body){
             let user = await fetchUserDB(req.body.user.email);

@@ -9,7 +9,7 @@ export default NextAuth({
             clientSecret:process.env.GOOGLE_CLIENT_SECRET
         })
     ],
-    secret:process.env.JWT_SECRET,
+    secret:process.env.NEXTAUTH_SECRET,
     callbacks:{
         async signIn({ user, account, profile, email, credentials }){
             // console.log(user, account, profile, email, credentials ,"{ user, account, profile, email, credentials }")
@@ -29,12 +29,16 @@ export default NextAuth({
                 userName:userData.userName,
                 userEmail:userData.userEmail
             }
-
+            // console.log(token,"token")
             return token
         },
         async session({session,token,user}){
             session.userData = token.userData
+            // console.log(session)
             return session
         }
-    }
+    },
+    session:{
+        maxAge: 24 * 60 * 60
+    },
 })

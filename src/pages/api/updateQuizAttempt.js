@@ -4,7 +4,7 @@ import mongoConnect from "../../../lib/mongoConnect"
 import { Answer } from "../../../Schema/Quiz";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./auth/[...nextauth]"
-export default async function submitQuiz(req,res){
+export default async function updateQuizAttempt(req,res){
     const session = await getServerSession(req, res, authOptions)
     if (!session) {
         res.status(403).send({message:"Forbidden"})
@@ -20,10 +20,9 @@ export default async function submitQuiz(req,res){
             // const attempt = await findAttempt(result);
             // // console.log(attempt)
             // answer.attemptNo = attempt;
-            const marks = await findScore(answer)
-            answer.marks = marks
-            answer.finalSubmit = true
-            console.log(answer.marks)
+            // const marks = await findScore(answer)
+            // answer.marks = marks
+            // console.log(answer.marks)
             await Answer.findOneAndUpdate({userId:answer.userId,quizId:answer.quizId,attemptNo:answer.attemptNo},answer);
             // console.log("done")
             res.send({saveStatus:true})

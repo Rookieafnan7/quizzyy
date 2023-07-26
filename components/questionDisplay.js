@@ -1,4 +1,25 @@
 export default function QuestionDisplay(props){
+  async function submitAnswer(){
+    const url = "/api/updateQuizAttempt"
+    const object = {
+      ...props.attemptData,
+      answer:props.answer,
+      submitTime:new Date(),
+    }
+    try{
+      const response = await fetch(url,{
+        method:'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+          body: JSON.stringify(object),
+        })
+        const result = await response.json()
+        console.log(result)
+    }catch(err){
+      console.log(err);
+    }
+  }
     function handleRadioClick(sid,qid,opId){
       let answerData = props.answer;
       let targetObject = answerData.find((question)=>{
@@ -28,7 +49,7 @@ export default function QuestionDisplay(props){
             </div>
             <div className={`mt-[3vh] md:h-[35vh] bg-options rounded-2xl drop-shadow-lg py-4 px-6 overflow-y-scroll`}>
               <form className="">
-                {props.currentQuestionData.options  && props.answer ? props.currentQuestionData.options.map((option)=>{
+                {props.currentQuestionData.options && props.answer ? props.currentQuestionData.options.map((option)=>{
                   return(
                     <div key={option.opId} className="mt-4">
                       <input type="radio" name={props.currentQuestionData.questionId} 
@@ -38,8 +59,10 @@ export default function QuestionDisplay(props){
                       }else{
                         return false
                       }
-                    }).checkedOption==option.opId}
-                    onChange={()=>{handleRadioClick(props.currentQuestionData.sectionId,props.currentQuestionData.questionId,option.opId)}}
+                    })?.checkedOption==option.opId}
+                    onChange={()=>{handleRadioClick(props.currentQuestionData.sectionId,props.currentQuestionData.questionId,option.opId)
+                        submitAnswer()
+                      }}
                     id={`${props.currentQuestionData.questionId}${props.currentQuestionData.sectionId}${option.opId}`}
 
                     />

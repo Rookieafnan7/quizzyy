@@ -10,6 +10,9 @@ import SetQuizAvailabiltyTime from "../../components/setQuizAvailabilityTime"
 // import FormControlLabel from "@mui/material"
 import {FormControl, FormLabel,RadioGroup,Radio,FormControlLabel} from "@mui/material"
 import DurationPicker from "../../components/durationPicker"
+import SectionCreate from "../../components/sectionCreate"
+import AddSection from "../../components/addSection"
+import SubmitQuizButton from "../../components/submitQuizButton"
 export default function createQuiz(){
 
     const {data:session,status} = useSession({required:true})
@@ -18,9 +21,12 @@ export default function createQuiz(){
         quizDescription:'',
         quizAvailability:'limited',
         startDateTime:null,
-        endDateTime:null
+        endDateTime:null,
+        sections:[]
 
     })
+    const [hours,setHours] = useState(0)
+    const [minutes,setMinutes] = useState(0)
     return(
         <>
             <Navbar/>
@@ -30,9 +36,9 @@ export default function createQuiz(){
                         Create Your Quiz
                     </span>
                 </div>
-                <div className="bg-createquizprimary rounded-xl  mt-4 px-4 py-4 ">
+                <div className="bg-createquizprimary rounded-xl px-2 mt-4 md:px-4 py-4 ">
                 <div className="md:flex md:justify-between">
-                <div className="md:w-[30%] mx-8">
+                <div className="md:w-[30%] md:mx-8 mx-4">
                         <div className="info-header text-md font-semibold pl-2 mb-2">
                             Quiz Name :
                             </div>
@@ -50,16 +56,16 @@ export default function createQuiz(){
                             
                             />
                     </div>
-                    <div className="md:w-[30%] mx-8">
+                    <div className="md:w-[30%] md:mx-8 mx-4">
                         <div className="info-header text-md font-semibold pl-2 mt-8 md:mt-0 mb-2">
                             Quiz Description :    
                         </div>
                         <TextField name="quizDescription"
                             className="quiz-description"
-                            sx={{color:'success'}}
+                            // sx={{color:'success'}}
                             value={quizData.quizDescription}
                             onChange={(e)=>{
-                                console.log(quizData)
+                                // console.log(quizData)
                                 setQuizData((prev)=> {return {...prev,quizDescription:e.target.value}})
                             }}
                             // error={quizData?.quizDescription?.length > 500}
@@ -75,7 +81,7 @@ export default function createQuiz(){
                     </div>
                 </div>
                     
-                <div className="mx-8">
+                <div className="md:mx-8 mx-4 mt-4">
                 <FormControl>
                         
                         <RadioGroup
@@ -92,16 +98,17 @@ export default function createQuiz(){
                             <FormControlLabel value="always" control={<Radio />} label="Always Available" />
                         </RadioGroup>
                     </FormControl>
-                    <SetQuizAvailabiltyTime quizData={quizData} setQuizData={setQuizData}/>
-                    <DurationPicker/>
+                    {/* <SetQuizAvailabiltyTime quizData={quizData} setQuizData={setQuizData}/>
+                    <DurationPicker  quizData={quizData} setQuizData={setQuizData}/> */}
+                    {quizData.quizAvailability=="limited"?<SetQuizAvailabiltyTime quizData={quizData} setQuizData={setQuizData}/>:<DurationPicker  quizData={quizData} setQuizData={setQuizData} minutes={minutes} hours={hours} setHours={setHours} setMinutes={setMinutes}/>}
                 </div>
                 </div>
-                <div className="bg-createsection mt-2 px-4 py-4 rounded-2xl">
-                <div className="info-header text-md font-semibold pl-2 mt-8 md:mt-0 mb-2 mx-8">
-                            Section Name :    
-                        </div>
-                    
-                </div>
+                
+                {quizData.sections.map((obj,index)=>{
+                    return <SectionCreate quizData={quizData} setQuizData={setQuizData} sectionId={obj.sectionId} key={index}/>
+                })}
+                <AddSection quizData={quizData} setQuizData={setQuizData}/>
+                <SubmitQuizButton quizData={quizData}/>
             </div>
             
         </>

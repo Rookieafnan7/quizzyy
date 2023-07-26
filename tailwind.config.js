@@ -41,6 +41,9 @@ module.exports = {
         'ideal':'60vh',
         'interface':'60vh',
         'question':'27vh'
+      },
+      fontFamily: {
+        sans: ['var(--font-poppins)'],
       }
     },
   },

@@ -15,11 +15,15 @@ const answerSchema = new Schema(
             status:String
         }],
         userId:Number,
+        userName:String,
         quizId:Number,
         attempStartTime:Date,
         attemptEndTime:Date,
         submitTime:Date,
-        marks:Number
+        marks:Number,
+        closed:Boolean,
+        attemptClosingTime:Date,
+        finalSubmit:Boolean,
     }
 )
 const questionSchema = new Schema({
@@ -42,6 +46,7 @@ const quizSchema = new Schema({
     attemptOnce:Boolean,
     quizCreationDate:Date,
     quizName:String,
+    userName:String,
     quizDescription:String,
     createdBy:String,
     quizId:Number,
@@ -51,6 +56,7 @@ const quizSchema = new Schema({
     quizAvailability:String,
     startDateTime:Date,
     endDateTime:Date,
+    quizClosingTime:Date,
     totalMarks:Number,
     totalQuestions:Number,
     totalSections:Number,

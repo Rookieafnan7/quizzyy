@@ -71,7 +71,7 @@ export default function Quiz() {
     </div>
     <div className="startdiv mt-4 pb-2 sticky bottom-0 flex align-middle justify-center transition-500 ease-out">
       <a className="text-white border-2 border-white bg-startquiz font-poppins px-4 py-2 font-semibold tracking-wide rounded-xl text-lg 
-      shadow-lg cursor-pointer hover:bg-white hover:border-2 hover:border-startquiz ease-out duration-500 hover:text-startquiz">Start Quiz</a>
+      shadow-lg cursor-pointer hover:bg-white hover:border-2 hover:border-startquiz ease-out duration-500 hover:text-startquiz" href={`/interface/${id}`}>Start Quiz</a>
     </div>
     </div>
   )
