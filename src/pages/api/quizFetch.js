@@ -16,7 +16,7 @@ export default async function quizFetch(req,res){
         await mongoConnect();
         if(req.body){
             const id = await req.body.quizId
-            // console.log(req.body,"body")
+            console.log(req.body,"body")
             const results = await fetchQuizMongo(id);
             // console.log(results)
            if(results){

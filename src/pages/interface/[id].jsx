@@ -117,7 +117,7 @@ export default function Interface(){
       setCurrentQuestionData(object);
     }
     useEffect(()=>{
-      
+      console.log("run")
       async function fetchQuiz(){
         console.log(session,"session")
         try{
@@ -135,6 +135,7 @@ export default function Interface(){
              quizData = tempData.results
             
             //  console.log(quizData,"quizData");
+            
             setCurrentQuestionData({section:1,question:1,sectionId:quizData.sections[0].sectionId,questionId:quizData.sections[0].questions[0].id,...quizData.sections[0].questions[0]});
             // console.log(quizData)
             setAttemptData(tempData.answer)
@@ -164,9 +165,14 @@ export default function Interface(){
           console.log(err);
         }
       }
-      if(session?.userData){
+      // if(session?.userData){
+        
+        // console.log("check")
+        if(currentQuestionData.section==undefined)
         fetchQuiz()
-      }
+      // }else{
+      //   console.log("uncheck,",session)
+      // }
         
         // console.log(answer);
 
